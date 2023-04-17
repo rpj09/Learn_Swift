@@ -118,3 +118,137 @@ if case let .song(artist,songname) = songna{
     songname // basically unpacking the values of enum
 }
 
+
+enum vehicle{
+    case Car(manufacturer:String,model:String)
+    case Bike(manufacturer:String,year:Int)
+    
+}
+
+
+
+let car1 = vehicle.Car(manufacturer: "Tesla", model: "x")
+let bike1 = vehicle.Bike(manufacturer: "Harley", year:1987)
+
+
+
+// grabbing manufracturer out of car1 and bike1
+
+switch bike1{
+case let .Bike(manufacturer,_):
+    manufacturer
+case let .Car(manufacturer,_):
+    manufacturer
+    
+}
+switch car1{
+case let .Bike(manufacturer,_):
+    manufacturer
+case let .Car(manufacturer,_):
+    manufacturer
+    
+}
+
+//instead of doing this we can create a funciton for this to reduce number of line and make it more readable
+ 
+func getManufacturer(from vehicle : vehicle)->String{
+    switch vehicle{
+    case let .Bike(manufacturer,_):
+        return manufacturer
+    case let .Car(manufacturer,_):
+        return manufacturer
+        
+    }
+}
+
+// the above function parameter has external name from and internal name vehicle which is of type vehicle(enum)
+ 
+
+
+getManufacturer(from: car1)
+getManufacturer(from: bike1)
+
+
+// now to make it more better we can do this
+//putting the fucntion inside the enum
+// and instead of switching to vehicle we can switch to self
+
+enum vehicles{
+    case Car(manufacturer:String,model:String)
+    case Bike(manufacturer:String,year:Int)
+    func getManufacturer(/*from vehicle : vehicle*/)->String{
+        switch self {//vehicle
+        case let .Bike(manufacturer,_):
+            return manufacturer
+        case let .Car(manufacturer,_):
+            return manufacturer
+            
+        }
+    }
+    
+}
+
+let car2 = vehicles.Car(manufacturer: "Tesla", model: "x")
+let bike2 = vehicles.Bike(manufacturer: "Harley", year:1987)
+
+//now they can be called as a fuction
+car2.getManufacturer()
+bike2.getManufacturer()
+
+
+// we can make it more better
+
+
+enum vehicles1{
+    case Car(manufacturer:String,model:String)
+    case Bike(manufacturer:String,year:Int)
+    var Manufacturer:String{
+        switch self {
+        case let .Bike(manufacturer,_) , let .Car(manufacturer,_):
+            return manufacturer
+            
+        }
+    }
+    
+}
+
+let car3 = vehicles1.Car(manufacturer: "Tesla", model: "x")
+let bike3 = vehicles1.Bike(manufacturer: "Harley", year:1987)
+
+//they can be called as a method
+car3.Manufacturer
+bike3.Manufacturer
+
+
+
+//assigning raw values to enum cases
+
+enum familyMembers:String{
+    case Father =  "Dad"
+    case Mother = "Mom"
+    case Brother = "Brother"
+    case Sister = "Sis"
+}
+
+familyMembers.Brother.rawValue
+familyMembers.Father.rawValue
+familyMembers.Mother.rawValue
+familyMembers.Sister.rawValue
+
+enum emoji:String,CaseIterable{
+    case blush = "🥰"
+    case sad = "😞"
+}
+//returns all cases raw value a array
+emoji.allCases
+
+//returns all cases raw value as a array
+emoji.allCases.map(\.rawValue)
+
+
+if let blush = emoji(rawValue: "🥰"){
+    "Found the blush emoji"
+    blush
+}else{
+    "there is no such emoji"
+}

@@ -252,3 +252,47 @@ if let blush = emoji(rawValue: "🥰"){
 }else{
     "there is no such emoji"
 }
+
+
+enum Hieght{
+    case short,medium,long
+    mutating func makelong(){
+        self = Hieght.long
+    }
+}
+
+var my_hieght = Hieght.medium
+
+my_hieght.makelong()
+
+my_hieght
+
+
+
+
+
+
+//example of pretty advanced swift code for enumnerations 
+indirect enum IntOperation{
+    case add(Int,Int)
+    case subtract(Int,Int)
+    case freehand(IntOperation)
+    
+    func calculate_result(of operation : IntOperation? = nil)->Int{
+        switch operation ?? self {
+        case let .add(lhs,rhs):
+            return lhs + rhs
+        case let .subtract(lhs,rhs):
+            return lhs-rhs
+        case let .freehand(operation):
+            return calculate_result(of:operation)
+        }
+        
+    }
+}
+
+
+let freehand = IntOperation.freehand(.add(34, 44))
+
+freehand.calculate_result()
+

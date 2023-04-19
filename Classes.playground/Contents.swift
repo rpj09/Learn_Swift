@@ -176,5 +176,5 @@ let myclosure = {
     mycls.dosomethin()
 }
 
-myclosure()
+myclosure() 
 

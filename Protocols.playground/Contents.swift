@@ -1,3 +1,5 @@
-import Cocoa
+import Foundation
 
-var greeting = "Hello, playground"
+protocol pers{
+    func add()
+}

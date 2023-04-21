@@ -141,4 +141,6 @@ func increaseSpeedOfVehicle(obj:Any){
 }
 
 increaseSpeedOfVehicle(obj: bike)
+//the value is not changing beacue the function is creating copy of instance and changing the value of copy created
+// if this would have been instace of class it would the updated 
 bike.speed

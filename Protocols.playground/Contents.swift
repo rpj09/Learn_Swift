@@ -83,3 +83,62 @@ woof.increaseage()
 
 woof.age
 
+protocol Vehicle {
+    var speed:Int {get set}
+    mutating func increaseSpeed(by value:Int)
+}
+
+extension Vehicle{
+    mutating func increaseSpeed(
+        by value:Int
+    ){
+        self.speed += value
+    }
+}
+
+struct Bike:Vehicle{
+    var speed:Int
+    init(){
+        self.speed=0
+    }
+    
+    //could also have done var speed:Int = 0
+}
+
+
+var bike = Bike()
+
+bike.speed
+bike.increaseSpeed(by: 10)
+bike.speed
+
+
+func describe(obj:Any)->String{
+    if obj is Vehicle{
+        return "vehicle conform to vehicle protocol"
+    }else{
+        return "it does not conforms to vehicle protcol"
+    }
+}
+
+describe(obj: bike)
+
+
+func increaseSpeedOfVehicle(obj:Any){
+    if var vehicle = obj as? Vehicle{
+        // here it is not changing the actual value of instance
+        // it is creating a new varible and changing its value
+        // if it has been a instance of class instad of a struct
+        // then it would have been updated the value of instace only
+        vehicle.speed
+        vehicle.increaseSpeed(by:10)
+        vehicle.speed
+        
+        
+    }else{
+        "This was not a vehicle"
+    }
+}
+
+increaseSpeedOfVehicle(obj: bike)
+bike.speed
